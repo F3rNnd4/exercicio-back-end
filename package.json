@@ -1,0 +1,21 @@
+{
+  "name": "exercicio-bets",
+  "version": "1.0.0",
+  "description": "Exercício proposto na aula de Back-end mestrado pelos docentes Felipe e Marcelo",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "exercicio-back-end"
+  },
+  "keywords": [
+    "SENAI",
+    "back-end",
+    "Javascript",
+    "NodeJS"
+  ],
+  "author": "Fernanda Alves",
+  "license": "MIT"
+}
