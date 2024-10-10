@@ -60,35 +60,35 @@ suspeitosRoutes.get("/", (req, res) => {
 // Rota para buscar um suspeito pelo id
 suspeitosRoutes.get("/:id", (req, res) => {
     const { id } = req.params;
-  
+
     // Busca um suspeito pelo id no array
     const suspeito = suspeitos.find((criminoso) => criminoso.id == id);
-  
+
     // Verifica se o suspeito foi encontrado
     if (!suspeito) {
-      return res
-        .status(404)
-        .json({ message: `Suspeito com id ${id} não encontrado!` });
+        return res
+            .status(404)
+            .json({ message: `Suspeito com id ${id} não encontrado!` });
     }
-  
+
     return res.status(200).json(suspeito);
-  });
+});
 
 // Rota para atualizar um suspeito pelo id
 suspeitosRoutes.put("/:id", (req, res) => {
     const { id } = req.params;
     const { nome, profissao, envolvido, nivel } = req.body;
-  
+
     // Busca um suspeito pelo id no array
     const suspeito = suspeitos.find((criminoso) => criminoso.id == id);
-  
+
     // Verifica se o suspeito foi encontrado
     if (!suspeito) {
-      return res
-        .status(404)
-        .json({ message: `Suspeito com id ${id} não encontrado!` });
+        return res
+            .status(404)
+            .json({ message: `Suspeito com id ${id} não encontrado!` });
     }
-  
+
     // Validação dos campos nome e profissão
     if (!nome || !profissao) {
         return res.status(400).send({
@@ -111,16 +111,39 @@ suspeitosRoutes.put("/:id", (req, res) => {
                 "Insira sim ou não no envolvimento de apostas!",
         });
     }
-  
+
     suspeito.nome = nome;
     suspeito.profissao = profissao;
     suspeito.envolvido = envolvido;
     suspeito.nivel = nivel;
-  
+
     return res.status(200).json({
-      message: "Suspeito atualizado com sucesso!",
-      suspeito,
+        message: "Suspeito atualizado com sucesso!",
+        suspeito,
     });
-  });
+});
+
+//Rota que deleta um suspeito pelo id
+suspeitosRoutes.delete("/:id", (req, res) => {
+    const { id } = req.params;
+
+    // Busca um suspeito pelo id no array
+    const suspeito = suspeitos.find((criminoso) => criminoso.id == id);
+
+    // Verifica se o suspeito foi encontrado
+    if (!suspeito) {
+        return res
+            .status(404)
+            .json({ message: `Suspeito com id ${id} não encontrado!` });
+    }
+
+    // Remove o suspeito do array
+    suspeitos = suspeitos.filter((suspeito) => suspeito.id != id);
+
+    return res.status(200).json({
+        message: "Suspeito removido com sucesso!",
+        suspeito,
+    });
+});
 
 export default suspeitosRoutes;
