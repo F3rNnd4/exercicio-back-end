@@ -9,7 +9,7 @@ let suspeitos = [
 
 //Rota para cadastrar um novo suspeito
 suspeitosRoutes.post("/", (req, res) => {
-    const { id, nome, profissao, envolvido, nivel } = req.body;
+    const { nome, profissao, envolvido, nivel } = req.body;
 
     // Validação dos campos nome e profissão
     if (!nome || !profissao) {
