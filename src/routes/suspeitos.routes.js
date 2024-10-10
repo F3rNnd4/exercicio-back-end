@@ -26,6 +26,7 @@ suspeitosRoutes.post("/", (req, res) => {
         });
     }
 
+    //Validação do envolvimento em apostas
     if (envolvido != 'sim' && envolvido != 'não') {
         return res.status(400).send({
             message:
@@ -71,6 +72,55 @@ suspeitosRoutes.get("/:id", (req, res) => {
     }
   
     return res.status(200).json(suspeito);
+  });
+
+// Rota para atualizar um suspeito pelo id
+suspeitosRoutes.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, profissao, envolvido, nivel } = req.body;
+  
+    // Busca um suspeito pelo id no array
+    const suspeito = suspeitos.find((criminoso) => criminoso.id == id);
+  
+    // Verifica se o suspeito foi encontrado
+    if (!suspeito) {
+      return res
+        .status(404)
+        .json({ message: `Suspeito com id ${id} não encontrado!` });
+    }
+  
+    // Validação dos campos nome e profissão
+    if (!nome || !profissao) {
+        return res.status(400).send({
+            message: "O nome ou o profissão não foi preenchido!",
+        });
+    }
+
+    // Validação do nível de suspeita
+    if (nivel != 'baixo' && nivel != 'médio' && nivel != 'alto') {
+        return res.status(400).send({
+            message:
+                "O suspeito não possui o nível de suspeita!",
+        });
+    }
+
+    //Validação do envolvimento em apostas
+    if (envolvido != 'sim' && envolvido != 'não') {
+        return res.status(400).send({
+            message:
+                "Insira sim ou não no envolvimento de apostas!",
+        });
+    }
+  
+    suspeito.nome = nome;
+    suspeito.profissao = profissao;
+    suspeito.envolvido = envolvido;
+    suspeito.nivel = nivel;
+  
+    return res.status(200).json({
+      message: "Suspeito atualizado com sucesso!",
+      suspeito,
+    });
   });
 
 export default suspeitosRoutes;
